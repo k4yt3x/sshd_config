@@ -109,6 +109,13 @@ PermitRootLogin no
 # suppress MOTD
 PrintMotd no
 
+# enforce SSH server to only use SSH protocol version 2
+# SSHv1 contains security issues and should be avoided at all costs
+# SSHv1 is disabled by default after OpenSSH 7.0, but this option is
+#   specified anyways to ensure this configuration file's compatibility
+#   with older versions of OpenSSH server
+Protocol 2
+
 # enable pubkey authentication
 PubkeyAuthentication yes
 
