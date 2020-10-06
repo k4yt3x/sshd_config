@@ -97,7 +97,7 @@ GatewayPorts no
 IgnoreRhosts yes
 
 # log verbosely for addtional information
-LogLevel VERBOSE
+#LogLevel VERBOSE
 
 # set maximum authenticaion retries to prevent brute force attacks
 MaxAuthTries 3
