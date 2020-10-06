@@ -35,6 +35,8 @@ For convenience, I have pointed the URL `https://akas.io/sshd` to the `sshd_conf
 curl -sSL akas.io/sshd -o sshd_config
 ```
 
+You may want to use the [ssh-audit](https://github.com/arthepsy/ssh-audit) script to check the cryptographic strength of your SSH server after done configuring it.
+
 ## `sshd_config` Content
 
 ```properties
