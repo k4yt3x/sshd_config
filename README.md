@@ -1,6 +1,6 @@
 # K4YT3X's Hardened OpenSSH Server Configuration
 
-This repository hosts my hardened version of OpenSSH server configuration file.
+This repository hosts my hardened version of OpenSSH server (6.7+) configuration file.
 
 **Please review the configuration file carefully before applying it.** You are responsible for actions done to your own system.
 
@@ -43,8 +43,10 @@ You may want to use the [ssh-audit](https://github.com/jtesta/ssh-audit) script 
 # Name: K4YT3X Hardened OpenSSH Configuration
 # Author: K4YT3X
 # Date Created: October 5, 2020
-# Last Updated: October 5, 2020
-# Version: 1.0
+# Last Updated: October 6, 2020
+# Version: 1.1
+
+########## Binding ##########
 
 # SSH server listening address and port
 #Port 22
@@ -57,6 +59,8 @@ You may want to use the [ssh-audit](https://github.com/jtesta/ssh-audit) script 
 # only listen to IPv6
 #AddressFamily inet6
 
+########## Features ##########
+
 # accept locale-related environment variables
 AcceptEnv LANG LC_*
 
@@ -66,18 +70,76 @@ AllowAgentForwarding no
 # prevent TCP ports from being forwarded over SSH tunnels
 AllowTcpForwarding no
 
+# prevent StreamLocal (Unix-domain socket) forwarding
+AllowStreamLocalForwarding no
+
+# disables all forwarding features
+# overrides all other forwarding switches
+DisableForwarding yes
+
+# disallow remote hosts from connecting to forwarded ports
+# i.e. forwarded ports are forced to bind to 127.0.0.1 instad of 0.0.0.0
+GatewayPorts no
+
+# prevent tun device forwarding
+PermitTunnel no
+
+# suppress MOTD
+PrintMotd no
+
+# use kernel sandbox mechanisms where possible in unprivileged processes
+# systrace on OpenBSD, Seccomp on Linux, seatbelt on MacOSX/Darwin, rlimit elsewhere
+UsePrivilegeSeparation sandbox
+
+# disable X11 forwarding since it is not necessary
+X11Forwarding no
+
+########## Authentication ##########
+
 # permit only the specified users to login
 #AllowUsers k4yt3x
+
+# permit only users within the specified groups to login
+#AllowGroups k4yt3x
+
+# uncomment the following options to permit only pubkey authentication
+# be aware that this will disable password authentication
+#   - AuthenticationMethods: permitted authentication methods
+#   - PasswordAuthentication: set to no to disable password authentication
+#   - UsePAM: set to no to disable all PAM authentication, also disables PasswordAuthentication when set to no
+#AuthenticationMethods publickey
+#PasswordAuthentication no
+#UsePAM no
+
+# PAM authentication enabled to make password authentication available
+# remove this if password authentication is not needed
+UsePAM yes
 
 # challenge-response authentication backend it not configured by default
 # therefore, it is set to "no" by default to avoid the use of an unconfigured backend
 ChallengeResponseAuthentication no
+
+# set maximum authenticaion retries to prevent brute force attacks
+MaxAuthTries 3
+
+# disallow connecting using empty passwords
+PermitEmptyPasswords no
+
+# prevent root from being logged in via SSH
+PermitRootLogin no
+
+# enable pubkey authentication
+PubkeyAuthentication yes
+
+########## Cryptography ##########
 
 # explicitly define cryptography algorithms to avoid the use of weak algorithms
 Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
 HostKeyAlgorithms rsa-sha2-512,rsa-sha2-256,ssh-ed25519
 KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,diffie-hellman-group14-sha256
 MACs umac-128-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com
+
+########## Connection Preferences ##########
 
 # number of client alive messages sent without client responding
 ClientAliveCountMax 2
@@ -89,33 +151,14 @@ ClientAliveInterval 300
 # compression before encryption might cause security issues
 Compression no
 
-# disallow remote hosts from connecting to forwarded ports
-# i.e. forwarded ports are forced to bind to 127.0.0.1 instad of 0.0.0.0
-GatewayPorts no
-
 # prevent SSH trust relationships from allowing lateral movements
 IgnoreRhosts yes
 
 # log verbosely for addtional information
 #LogLevel VERBOSE
 
-# set maximum authenticaion retries to prevent brute force attacks
-MaxAuthTries 3
-
 # allow a maximum of two multiplexed sessions over a single TCP connection
 MaxSessions 2
-
-# disable password authentication
-#PasswordAuthentication no
-
-# disallow connecting using empty passwords
-PermitEmptyPasswords no
-
-# prevent root from being logged in via SSH
-PermitRootLogin no
-
-# suppress MOTD
-PrintMotd no
 
 # enforce SSH server to only use SSH protocol version 2
 # SSHv1 contains security issues and should be avoided at all costs
@@ -123,9 +166,6 @@ PrintMotd no
 #   specified anyways to ensure this configuration file's compatibility
 #   with older versions of OpenSSH server
 Protocol 2
-
-# enable pubkey authentication
-PubkeyAuthentication yes
 
 # override default of no subsystems
 Subsystem sftp /usr/libexec/openssh/sftp-server
@@ -135,12 +175,4 @@ TCPKeepAlive no
 
 # disable reverse DNS lookups
 UseDNS no
-
-# disable PAM since it is not necessary
-# disables PasswordAuthentication
-#UsePAM no
-UsePAM yes
-
-# disable X11 forwarding since it is not necessary
-X11Forwarding no
 ```
