@@ -1,7 +1,7 @@
 # Name: K4YT3X Hardened OpenSSH Configuration
 # Author: K4YT3X
 # Date Created: October 5, 2020
-# Last Updated: October 6, 2020
+# Last Updated: October 8, 2020
 
 ########## Binding ##########
 
@@ -125,7 +125,10 @@ MaxSessions 2
 Protocol 2
 
 # override default of no subsystems
-Subsystem sftp /usr/libexec/openssh/sftp-server
+# path to the sftp-server binary depends on your distribution
+#Subsystem sftp /usr/lib/openssh/sftp-server
+#Subsystem sftp /usr/libexec/openssh/sftp-server
+Subsystem sftp internal-sftp
 
 # let ClientAliveInterval handle keepalive
 TCPKeepAlive no
