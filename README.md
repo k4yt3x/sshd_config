@@ -1,6 +1,6 @@
 # K4YT3X's Hardened OpenSSH Server Configuration
 
-This repository hosts my hardened version of OpenSSH server (6.7+) configuration file.
+This repository hosts my hardened version of OpenSSH server (7.4+) configuration file.
 
 **Please review the configuration file carefully before applying it.** You are responsible for actions done to your own system.
 
@@ -13,11 +13,8 @@ This repository hosts my hardened version of OpenSSH server (6.7+) configuration
 1. Run the appropriate command to restart the SSH service (e.g., `sudo systemctl restart ssh`)
 
 ```shell
-# download the configuration file from GitHub using curl
+# download the configuration file from GitHub using curl or other methods
 curl https://raw.githubusercontent.com/k4yt3x/sshd_config/master/sshd_config ~/sshd_config
-
-# you may also download with wget or other methods if curl is not available
-wget https://raw.githubusercontent.com/k4yt3x/sshd_config/master/sshd_config ~/sshd_config
 
 # backup the original sshd_config
 sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.backup
@@ -39,4 +36,4 @@ For convenience, I have pointed the URL `https://akas.io/sshd` to the `sshd_conf
 curl -sSL akas.io/sshd -o sshd_config
 ```
 
-You may want to use the [ssh-audit](https://github.com/jtesta/ssh-audit) script to check the cryptographic strength of your SSH server after done configuring it.
+It's recommended to use the [ssh-audit](https://github.com/jtesta/ssh-audit) script to check the cryptographic strength of your SSH server after done configuring it.
