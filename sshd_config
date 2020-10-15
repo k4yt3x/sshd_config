@@ -1,7 +1,7 @@
 # Name: K4YT3X Hardened OpenSSH Configuration
 # Author: K4YT3X
 # Date Created: October 5, 2020
-# Last Updated: October 10, 2020
+# Last Updated: October 15, 2020
 
 # Licensed under the GNU General Public License Version 3 (GNU GPL v3),
 #   available at: https://www.gnu.org/licenses/gpl-3.0.txt
@@ -98,8 +98,12 @@ PubkeyAuthentication yes
 # explicitly define cryptography algorithms to avoid the use of weak algorithms
 Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
 HostKeyAlgorithms rsa-sha2-512,rsa-sha2-256,ssh-ed25519
-KexAlgorithms curve25519-sha256,curve25519-sha256@libssh.org,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,diffie-hellman-group-exchange-sha256
 MACs hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,umac-128-etm@openssh.com
+
+# short moduli should be deactivated before enabling the use of diffie-hellman-group-exchange-sha256
+# see this link for more details: https://github.com/k4yt3x/sshd_config#deactivating-short-diffie-hellman-moduli
+#KexAlgorithms curve25519-sha256,curve25519-sha256@libssh.org,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,diffie-hellman-group-exchange-sha256,diffie-hellman-group14-sha256
+KexAlgorithms curve25519-sha256,curve25519-sha256@libssh.org,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,diffie-hellman-group14-sha256
 
 ########## Connection Preferences ##########
 

@@ -37,3 +37,14 @@ curl -sSL akas.io/sshd -o sshd_config
 ```
 
 It's recommended to use the [ssh-audit](https://github.com/jtesta/ssh-audit) script to check the cryptographic strength of your SSH server after done configuring it.
+
+## Deactivating Short Diffie-Hellman Moduli
+
+Diffie-Hellman moduli used for `diffie-hellman-group-exchange-sha256` should be at lest 3072 bits long according to [Mozilla's OpenSSH server hardening guide](https://infosec.mozilla.org/guidelines/openssh#modern-openssh-67). This can be done with the following commands.
+
+```shell
+# find lines with moduli >= 3071 bits and save them to moduli.tmp
+awk '$5 >= 3071' /etc/ssh/moduli > /etc/ssh/moduli.tmp
+# overwrite original moduli file with the updated one
+mv /etc/ssh/moduli.tmp /etc/ssh/moduli
+```
