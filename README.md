@@ -14,7 +14,7 @@ This repository hosts my hardened version of OpenSSH server (7.4+) configuration
 
 ```shell
 # download the configuration file from GitHub using curl or other methods
-curl https://raw.githubusercontent.com/k4yt3x/sshd_config/master/sshd_config ~/sshd_config
+curl https://raw.githubusercontent.com/k4yt3x/sshd_config/master/sshd_config -o ~/sshd_config
 
 # backup the original sshd_config
 sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.backup
