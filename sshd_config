@@ -1,7 +1,7 @@
 # Name: K4YT3X Hardened OpenSSH Configuration
 # Author: K4YT3X
 # Date Created: October 5, 2020
-# Last Updated: October 15, 2020
+# Last Updated: November 20, 2020
 
 # Licensed under the GNU General Public License Version 3 (GNU GPL v3),
 #   available at: https://www.gnu.org/licenses/gpl-3.0.txt
@@ -110,8 +110,8 @@ KexAlgorithms curve25519-sha256,curve25519-sha256@libssh.org,diffie-hellman-grou
 # number of client alive messages sent without client responding
 ClientAliveCountMax 2
 
-# set session timeout to 300 seconds
-# disconnects the user after being idle for 5 minutes
+# send a keepalive message to the client when the session has been idle for 300 seconds
+# this prevents/detects connection timeouts
 ClientAliveInterval 300
 
 # compression before encryption might cause security issues
