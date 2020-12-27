@@ -27,6 +27,7 @@ sudo chown root:root /etc/ssh/sshd_config
 sudo chmod 644 /etc/ssh/sshd_config
 
 # use systemctl to reload the SSH server and apply the new configurations
+# on some distributions the SSH server service is called sshd
 sudo systemctl restart ssh
 ```
 
