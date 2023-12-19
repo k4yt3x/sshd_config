@@ -96,7 +96,10 @@ PubkeyAuthentication yes
 ########## Cryptography ##########
 
 # explicitly define cryptography algorithms to avoid the use of weak algorithms
-Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
+
+# In practice, our attack can be applied against any connection using either ChaCha20-Poly1305 or any CBC-mode cipher in combination with the Encrypt-then-MAC paradigm. Theoretically, CTR-mode ciphers in combination with the Encrypt-then-MAC paradigm are vulnerable as well, although this weakness cannot be exploited in a real-world scenario.
+# Ciphers aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
+Ciphers aes256-gcm@openssh.com,aes128-gcm@openssh.com
 HostKeyAlgorithms rsa-sha2-512,rsa-sha2-256,ssh-ed25519
 MACs hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,umac-128-etm@openssh.com
 
