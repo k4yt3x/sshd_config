@@ -1,11 +1,11 @@
 # Name: K4YT3X Hardened OpenSSH Configuration
 # Author: K4YT3X
 # Date Created: October 5, 2020
-# Last Updated: November 20, 2020
+# Last Updated: December 21, 2023
 
 # Licensed under the GNU General Public License Version 3 (GNU GPL v3),
 #   available at: https://www.gnu.org/licenses/gpl-3.0.txt
-# (C) 2020 K4YT3X
+# (C) 2020-2023 K4YT3X
 
 ########## Binding ##########
 
@@ -96,9 +96,8 @@ PubkeyAuthentication yes
 ########## Cryptography ##########
 
 # explicitly define cryptography algorithms to avoid the use of weak algorithms
-
-# In practice, our attack can be applied against any connection using either ChaCha20-Poly1305 or any CBC-mode cipher in combination with the Encrypt-then-MAC paradigm. Theoretically, CTR-mode ciphers in combination with the Encrypt-then-MAC paradigm are vulnerable as well, although this weakness cannot be exploited in a real-world scenario.
-# Ciphers aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
+# AES CTR modes have been removed to mitigate the Terrapin attack
+#   https://terrapin-attack.com/
 Ciphers aes256-gcm@openssh.com,aes128-gcm@openssh.com
 HostKeyAlgorithms rsa-sha2-512,rsa-sha2-256,ssh-ed25519
 MACs hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,umac-128-etm@openssh.com
