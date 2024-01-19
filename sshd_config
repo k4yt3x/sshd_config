@@ -98,7 +98,7 @@ PubkeyAuthentication yes
 # explicitly define cryptography algorithms to avoid the use of weak algorithms
 # AES CTR modes have been removed to mitigate the Terrapin attack
 #   https://terrapin-attack.com/
-Ciphers aes256-gcm@openssh.com,aes128-gcm@openssh.com,chacha20-poly1305@openssh.com
+Ciphers aes256-gcm@openssh.com,aes128-gcm@openssh.com
 HostKeyAlgorithms rsa-sha2-512,rsa-sha2-256,ssh-ed25519
 MACs hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,umac-128-etm@openssh.com
 
