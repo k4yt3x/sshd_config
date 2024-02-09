@@ -4,6 +4,8 @@ This repository hosts my hardened version of OpenSSH server (7.4+) configuration
 
 **Please review the configuration file carefully before applying it.** You are responsible for actions done to your own system.
 
+You may also want to check out the [SSH Hardening Guides](https://www.ssh-audit.com/hardening_guides.html).
+
 ## Usages
 
 1. Download the file `sshd_config` from the repository
