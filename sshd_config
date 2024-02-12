@@ -3,7 +3,7 @@
 # Contributor: IceCodeNew
 # Contributor: brxken128
 # Date Created: October 5, 2020
-# Last Updated: February 8, 2024
+# Last Updated: February 12, 2024
 
 # Licensed under the GNU General Public License Version 3 (GNU GPL v3),
 #   available at: https://www.gnu.org/licenses/gpl-3.0.txt
@@ -46,7 +46,7 @@ AllowStreamLocalForwarding no
 DisableForwarding yes
 
 # disallow remote hosts from connecting to forwarded ports
-# i.e. forwarded ports are forced to bind to 127.0.0.1 instad of 0.0.0.0
+# i.e. forwarded ports are forced to bind to 127.0.0.1 instead of 0.0.0.0
 GatewayPorts no
 
 # prevent tun device forwarding
@@ -83,7 +83,7 @@ UsePAM yes
 # therefore, it is set to "no" by default to avoid the use of an unconfigured backend
 ChallengeResponseAuthentication no
 
-# set maximum authenticaion retries to prevent brute force attacks
+# set maximum authentication retries to prevent brute force attacks
 MaxAuthTries 3
 
 # disallow connecting using empty passwords
@@ -98,16 +98,18 @@ PubkeyAuthentication yes
 ########## Cryptography ##########
 
 # explicitly define cryptography algorithms to avoid the use of weak algorithms
-# AES CTR modes have been removed to mitigate the Terrapin attack
+# AES-CTR and Chacha20-Poly1305 modes have been removed to mitigate the Terrapin attack
 #   https://terrapin-attack.com/
 Ciphers aes256-gcm@openssh.com,aes128-gcm@openssh.com
 HostKeyAlgorithms rsa-sha2-512,rsa-sha2-256,ssh-ed25519
-MACs hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,umac-128-etm@openssh.com
+MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com
 
 # short moduli should be deactivated before enabling the use of diffie-hellman-group-exchange-sha256
 #   see this link for more details: https://github.com/k4yt3x/sshd_config#deactivating-short-diffie-hellman-moduli
-# Chacha20-Poly1305 has been removed to mitigate the Terrapin attack: https://terrapin-attack.com/
-# ecdh-sha2-nistp* algorithms have been removed due to concerns around NIST P-curves' design: https://github.com/jtesta/ssh-audit/issues/213#issuecomment-1774204745
+# AES-CTR and Chacha20-Poly1305 modes have been removed to mitigate the Terrapin attack
+#   https://terrapin-attack.com/
+# ecdh-sha2-nistp* algorithms have been removed due to concerns around NIST P-curves' design
+#   https://github.com/jtesta/ssh-audit/issues/213#issuecomment-1774204745
 KexAlgorithms sntrup761x25519-sha512@openssh.com,curve25519-sha256,curve25519-sha256@libssh.org,diffie-hellman-group18-sha512,diffie-hellman-group16-sha512
 
 ########## Connection Preferences ##########
@@ -125,7 +127,7 @@ Compression no
 # prevent SSH trust relationships from allowing lateral movements
 IgnoreRhosts yes
 
-# log verbosely for addtional information
+# log verbosely for additional information
 #LogLevel VERBOSE
 
 # allow a maximum of two multiplexed sessions over a single TCP connection
