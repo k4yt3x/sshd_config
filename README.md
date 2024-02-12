@@ -1,10 +1,10 @@
 # K4YT3X's Hardened OpenSSH Server Configuration
 
-This repository hosts my hardened version of OpenSSH server (7.4+) configuration file.
+This repository hosts my hardened version of OpenSSH server (>=8.5) configuration file. You will need to modify the configuration according to the error messages if you want to use this configuration for older versions of OpenSSH.
 
-**Please review the configuration file carefully before applying it.** You are responsible for actions done to your own system.
+**Please review the configuration file carefully before applying it.** You are responsible for actions done to your own systems.
 
-You may also want to check out the [SSH Hardening Guides](https://www.ssh-audit.com/hardening_guides.html).
+In addition to this configuration, you may also want to check out the [SSH Hardening Guides](https://www.ssh-audit.com/hardening_guides.html).
 
 ## Usages
 
