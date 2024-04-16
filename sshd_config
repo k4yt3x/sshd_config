@@ -112,7 +112,6 @@ MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@op
 
 # only use hostkeys with secure algorithms, and omit the ones using NIST curves
 HostKey /etc/ssh/ssh_host_ed25519_key
-HostKey /etc/ssh/ssh_host_rsa_key
 
 # short moduli should be deactivated before enabling the use of diffie-hellman-group-exchange-sha256
 #   see this link for more details: https://github.com/k4yt3x/sshd_config#deactivating-short-diffie-hellman-moduli
