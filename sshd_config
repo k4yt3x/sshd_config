@@ -2,8 +2,9 @@
 # Author: K4YT3X
 # Contributor: IceCodeNew
 # Contributor: brxken128
+# Contributor: CookieCr2nk
 # Date Created: October 5, 2020
-# Last Updated: February 12, 2024
+# Last Updated: May 6, 2024
 
 # Licensed under the GNU General Public License Version 3 (GNU GPL v3),
 #   available at: https://www.gnu.org/licenses/gpl-3.0.txt
@@ -104,6 +105,11 @@ Ciphers aes256-gcm@openssh.com,aes128-gcm@openssh.com
 HostKeyAlgorithms rsa-sha2-512,rsa-sha2-256,ssh-ed25519
 MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com
 
+# only use host keys with secure HostKeyAlgorithms
+# omit the ECDSA key since it is only used in conjunction with the NIST P-curves
+HostKey /etc/ssh/ssh_host_ed25519_key
+#HostKey /etc/ssh/ssh_host_rsa_key
+
 # short moduli should be deactivated before enabling the use of diffie-hellman-group-exchange-sha256
 #   see this link for more details: https://github.com/k4yt3x/sshd_config#deactivating-short-diffie-hellman-moduli
 # AES-CTR and Chacha20-Poly1305 modes have been removed to mitigate the Terrapin attack
@@ -113,6 +119,11 @@ MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@op
 KexAlgorithms sntrup761x25519-sha512@openssh.com,curve25519-sha256,curve25519-sha256@libssh.org,diffie-hellman-group18-sha512,diffie-hellman-group16-sha512
 
 ########## Connection Preferences ##########
+
+# Debian-based distributions only
+# hide the Debian banner to prevent information disclosure
+# (e.g., `SSH-2.0-OpenSSH_8.4p1 Debian-5+deb11u3`)
+#DebianBanner no
 
 # number of client alive messages sent without client responding
 ClientAliveCountMax 2
