@@ -1,10 +1,10 @@
 # Name: K4YT3X Hardened OpenSSH Configuration
-# Author: K4YT3X
+# Author: mwarr-dev
 # Contributor: IceCodeNew
 # Contributor: brxken128
 # Contributor: CookieCr2nk
 # Date Created: October 5, 2020
-# Last Updated: May 6, 2024
+# Last Updated: Sept 20, 2024
 
 # Licensed under the GNU General Public License Version 3 (GNU GPL v3),
 #   available at: https://www.gnu.org/licenses/gpl-3.0.txt
@@ -13,23 +13,16 @@
 ########## Binding ##########
 
 # SSH server listening address and port
-#Port 22
-#ListenAddress 0.0.0.0
-#ListenAddress ::
+Port 22
+ListenAddress 0.0.0.0
+ListenAddress ::
 
-# only listen to IPv4
-#AddressFamily inet
-
-# only listen to IPv6
-#AddressFamily inet6
+# listen to IPv4 and IPv6
+AddressFamily any
 
 ########## Features ##########
 
-# accept locale-related environment variables
-AcceptEnv LANG LC_CTYPE LC_NUMERIC LC_TIME LC_COLLATE LC_MONETARY LC_MESSAGES
-AcceptEnv LC_PAPER LC_NAME LC_ADDRESS LC_TELEPHONE LC_MEASUREMENT
-AcceptEnv LC_IDENTIFICATION LC_ALL LANGUAGE
-AcceptEnv XMODIFIERS
+# deny locale-related environment variables
 
 # disallow ssh-agent forwarding to prevent lateral movement
 AllowAgentForwarding no
@@ -62,7 +55,7 @@ X11Forwarding no
 ########## Authentication ##########
 
 # permit only the specified users to login
-#AllowUsers k4yt3x
+AllowUsers ubuntu
 
 # permit only users within the specified groups to login
 #AllowGroups k4yt3x
@@ -72,20 +65,16 @@ X11Forwarding no
 #   - AuthenticationMethods: permitted authentication methods
 #   - PasswordAuthentication: set to no to disable password authentication
 #   - UsePAM: set to no to disable all PAM authentication, also disables PasswordAuthentication when set to no
-#AuthenticationMethods publickey
-#PasswordAuthentication no
-#UsePAM no
-
-# PAM authentication enabled to make password authentication available
-# remove this if password authentication is not needed
-UsePAM yes
+AuthenticationMethods publickey
+PasswordAuthentication no
+UsePAM no
 
 # challenge-response authentication backend it not configured by default
 # therefore, it is set to "no" by default to avoid the use of an unconfigured backend
 ChallengeResponseAuthentication no
 
 # set maximum authentication retries to prevent brute force attacks
-MaxAuthTries 3
+MaxAuthTries 5
 
 # disallow connecting using empty passwords
 PermitEmptyPasswords no
@@ -108,7 +97,10 @@ MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@op
 # only use host keys with secure HostKeyAlgorithms
 # omit the ECDSA key since it is only used in conjunction with the NIST P-curves
 HostKey /etc/ssh/ssh_host_ed25519_key
-#HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_rsa_key
+
+# Identify where authorized keys are
+AuthorizedKeysFile      .ssh/authorized_keys
 
 # short moduli should be deactivated before enabling the use of diffie-hellman-group-exchange-sha256
 #   see this link for more details: https://github.com/k4yt3x/sshd_config#deactivating-short-diffie-hellman-moduli
@@ -126,11 +118,11 @@ KexAlgorithms sntrup761x25519-sha512@openssh.com,curve25519-sha256,curve25519-sh
 #DebianBanner no
 
 # number of client alive messages sent without client responding
-ClientAliveCountMax 2
+ClientAliveCountMax 5
 
-# send a keepalive message to the client when the session has been idle for 300 seconds
+# send a keepalive message to the client when the session has been idle for 1000 seconds
 # this prevents/detects connection timeouts
-ClientAliveInterval 300
+ClientAliveInterval 1000
 
 # compression before encryption might cause security issues
 Compression no
@@ -139,10 +131,10 @@ Compression no
 IgnoreRhosts yes
 
 # log verbosely for additional information
-#LogLevel VERBOSE
+LogLevel VERBOSE
 
 # allow a maximum of two multiplexed sessions over a single TCP connection
-MaxSessions 2
+MaxSessions 5
 
 # enforce SSH server to only use SSH protocol version 2
 # SSHv1 contains security issues and should be avoided at all costs
@@ -155,10 +147,16 @@ Protocol 2
 # path to the sftp-server binary depends on your distribution
 #Subsystem sftp /usr/lib/openssh/sftp-server
 #Subsystem sftp /usr/libexec/openssh/sftp-server
-Subsystem sftp internal-sftp
+#Subsystem sftp internal-sftp
 
 # let ClientAliveInterval handle keepalive
 TCPKeepAlive no
 
 # disable reverse DNS lookups
 UseDNS no
+
+# Misc Hardening
+SyslogFacility AUTH
+LoginGraceTime 120
+UnusedConnectionTimeout 1m
+ChannelTimeout global=8h
