@@ -1,4 +1,4 @@
-# Name: K4YT3X Hardened OpenSSH Configuration
+# Name: mwarr-dev Hardened OpenSSH Configuration
 # Author: mwarr-dev
 # Contributor: IceCodeNew
 # Contributor: brxken128
@@ -115,7 +115,7 @@ KexAlgorithms sntrup761x25519-sha512@openssh.com,curve25519-sha256,curve25519-sh
 # Debian-based distributions only
 # hide the Debian banner to prevent information disclosure
 # (e.g., `SSH-2.0-OpenSSH_8.4p1 Debian-5+deb11u3`)
-#DebianBanner no
+DebianBanner no
 
 # number of client alive messages sent without client responding
 ClientAliveCountMax 5
@@ -160,3 +160,12 @@ SyslogFacility AUTH
 LoginGraceTime 120
 UnusedConnectionTimeout 1m
 ChannelTimeout global=8h
+X11UseLocalhost yes
+PrintLastLog no
+PermitUserEnvironment no
+PidFile /var/run/sshd.pid
+ChrootDirectory none
+VersionAddendum none
+
+# TODO
+# Check into RekeyLimit
