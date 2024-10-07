@@ -162,3 +162,7 @@ TCPKeepAlive no
 
 # disable reverse DNS lookups
 UseDNS no
+
+# anything the user could accomplish with environment variables could also do interactively in their shell. 
+# disabling the passing of environment variables could reduce/minimize a potential attack vector 
+PermitUserEnvironment no
