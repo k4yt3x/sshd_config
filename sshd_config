@@ -31,6 +31,9 @@ AcceptEnv LC_PAPER LC_NAME LC_ADDRESS LC_TELEPHONE LC_MEASUREMENT
 AcceptEnv LC_IDENTIFICATION LC_ALL LANGUAGE
 AcceptEnv XMODIFIERS
 
+# disallow automatically setting environment variables through ~/.ssh/environment
+PermitUserEnvironment no
+
 # disallow ssh-agent forwarding to prevent lateral movement
 AllowAgentForwarding no
 
