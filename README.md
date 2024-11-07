@@ -33,10 +33,10 @@ sudo chmod 644 /etc/ssh/sshd_config
 sudo systemctl restart ssh
 ```
 
-For convenience, I have pointed the URL `https://k4t.io/sshd` to the `sshd_config` file. You may therefore download the `sshd_config` file with the following command. However, be sure to check the integrity of the file after downloading it if you choose to download using this method.
+For convenience, I have pointed the URL `https://kt.ax/sshd` to the `sshd_config` file. You may therefore download the `sshd_config` file with the following command. However, be sure to check the integrity of the file after downloading it if you choose to download using this method.
 
 ```shell
-curl -L k4t.io/sshd -o sshd_config
+curl -L kt.ax/sshd -o sshd_config
 ```
 
 It's recommended to use the [ssh-audit](https://github.com/jtesta/ssh-audit) script to check the cryptographic strength of your SSH server after done configuring it.
